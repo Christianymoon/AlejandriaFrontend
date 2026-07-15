@@ -5,7 +5,7 @@ export async function getAllPublications(token) {
         const response = await fetch("/api/publications/", {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
             }
         })
 
@@ -13,7 +13,7 @@ export async function getAllPublications(token) {
             return { error: response.statusText }
         }
 
-        const data = response.json()
+        const data = await response.json()
         return data
 
     } catch (error) {
@@ -22,6 +22,9 @@ export async function getAllPublications(token) {
 }
 
 export async function setPublication(token, publication) {
+
+    console.log(token)
+    console.log(publication)
     try {
         const response = await fetch("/api/publications/", {
             method: "POST",
@@ -36,7 +39,7 @@ export async function setPublication(token, publication) {
             return { error: response.statusText }
         }
 
-        const data = response.json()
+        const data = await response.json()
         return data
 
     } catch (error) {

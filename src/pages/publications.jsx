@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react"
-import { getAllPublications } from "../api/Publications"
-import { useAuth } from "../contexts/AuthContext"
+import { getAllPublications, setPublication } from "../api/Publications.jsx"
+import { useAuth } from "../contexts/AuthContext.jsx"
+import { AddButton } from "../components/buttons.jsx"
+import { Modal } from "../components/modal.jsx"
+import { useNavigate } from "react-router"
+import Cards from "../components/cards.jsx"
 
-export default function Publications() {
-
+export function Publications() {
     const [publications, setPublications] = useState([])
     const [className, setName] = useState("")
     const [year, setYear] = useState("")
@@ -12,6 +15,8 @@ export default function Publications() {
     const [code, setCode] = useState("")
     const [error, setError] = useState(null)
     const { User } = useAuth()
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         const fetchPublications = async () => {
@@ -25,48 +30,135 @@ export default function Publications() {
         fetchPublications()
     }, [])
 
-    const handleSetPublication = () => {
-        console.log("A")
-        addPublication(User, {
-            name: "",
-            year: "",
-            month: "",
-            type: "",
-            code: ""
-        })
+    const navigateToAddPublication = () => {
+        navigate("/publications/add")
     }
 
     return (
         <div className="w-full">
-            <h1 className="text-3xl font-bold mx-10 w-fit p-3">Publicaciones</h1>
-            <span className="" onClick={handleSetPublication}>Agregar Publicacion</span>
+            <h1 className="text-2xl w-fit text-center w-full py-3">Publicaciones</h1>
+            <div className="MiniPanel w-full px-4 py-2">
+                <AddButton onClick={navigateToAddPublication} />
+            </div> 
             {error && <div>{error}</div>}
-            <table className="w-full">
-                <thead>
-                    <tr className="border-b">
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Año</th>
-                        <th>Mes</th>
-                        <th>ISBN</th>
-                        <th>Tipo</th>
-                        <th>Código</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {publications.map((publication) => (
-                        <tr key={publication.id}>
-                            <td>{publication.id}</td>
-                            <td>{publication.name}</td>
-                            <td>{publication.year}</td>
-                            <td>{publication.month}</td>
-                            <td>{publication.isbn}</td>
-                            <td>{publication.type}</td>
-                            <td>{publication.code}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <Cards publications={publications} />
         </div>
     )
+}
+
+
+
+export function AddPublications() {
+
+  const navigate = useNavigate()
+  const [name, setName] = useState("")
+  const [year, setYear] = useState("")
+  const [month, setMonth] = useState("")
+  const [type, setType] = useState("")
+  const [code, setCode] = useState("")
+  const { User } = useAuth()
+
+  const returnToPublications = () => {
+    navigate("/")
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const publication = {
+      name: name,
+      year: year,
+      month: month,
+      type: type,
+      code: code
+    }
+
+    const data = await setPublication(User, publication)
+    if (data.error) {
+      alert("Error al agregar la publicación: " + data.error)
+    } else {
+      alert("Publicación agregada correctamente")
+    }
+  }
+    
+
+  return (
+    <>
+      <Modal isOpen={true} onClose={returnToPublications}>
+        <h2 className="text-xl font-bold mb-4">Agregar Publicación</h2>
+        <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                    Título
+                </label>
+                <input
+                    type="text"
+                    id="name"
+                    value={name}
+                    autoComplete="on"
+                    onChange={(e) => setName(e.target.value)}
+                    className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="year">
+                    Año
+                </label>
+                <input
+                    type="number"
+                    id="year"
+                    value={year}
+                    autoComplete="on"
+                    onChange={(e) => setYear(e.target.value)}
+                    className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="month">
+                    Mes
+                </label>
+                <input
+                    type="number"
+                    id="month"
+                    value={month}
+                    autoComplete="on"
+                    onChange={(e) => setMonth(e.target.value)}
+                    className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
+                    Tipo
+                </label>
+                <input
+                    type="text"
+                    id="type"
+                    autoComplete="on"
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                    className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="code">
+                    Código
+                </label>
+                <input
+                    type="text"
+                    id="code"
+                    value={code}
+                    autoComplete="on"
+                    onChange={(e) => setCode(e.target.value)}
+                    className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
+            <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+                Agregar
+            </button>
+        </form>
+      </Modal>
+    </>  
+  )
 }

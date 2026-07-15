@@ -1,7 +1,7 @@
 export default function Inventory() {
     return (
         <div>
-            <h1>Inventory</h1>
+            <h1>Inventario</h1>
         </div>
     )
 }

@@ -1,21 +1,17 @@
-import { createContext, useState } from "react"
-import { useContext } from "react"
+import { createContext, useState, useContext } from "react"
 
 const AuthContext = createContext(null)
 
-export const AuthProvider = ({ children }) => {
-
+export function AuthProvider({ children }) {
     const [User, setUser] = useState(() => localStorage.getItem("access_token") || null)
-
     const Login = async (username, password) => {
-
         try {
             let params = new URLSearchParams()
             params.append("username", username)
             params.append("password", password)
 
 
-            const response = await fetch("api/auth/token", {
+            const response = await fetch("api/token", {
                 method: "POST",
                 body: params,
                 headers: {
@@ -26,13 +22,13 @@ export const AuthProvider = ({ children }) => {
             const data = await response.json()
             localStorage.setItem("access_token", data.access_token)
             setUser(data.access_token)
+            return true
 
         } catch (error) {
-            console.log(error)
+            return false
         }
 
     }
-
     const Logout = () => {
         setUser(null)
         localStorage.removeItem("access_token")
@@ -50,4 +46,7 @@ export const AuthProvider = ({ children }) => {
     )
 }
 
-export const useAuth = () => useContext(AuthContext)
+export function useAuth() {
+    const context = useContext(AuthContext) 
+    return context
+}

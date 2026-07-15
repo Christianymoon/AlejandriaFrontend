@@ -18,11 +18,14 @@ export default function Login() {
             setError("Todos los campos son obligatorios")
             return
         }
-
-        await Login(username, password)
-
-        if (isAuthenticated) {
+        try {
+            const success = await Login(username, password)
+            if (!success) {
+                setError("Credenciales incorrectas")
+            }
             navigate('/')
+        } catch (error) {
+            setError("Error al iniciar sesión")
         }
 
     }

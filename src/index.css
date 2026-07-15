@@ -20,9 +20,25 @@ body {
     background-color: var(--bg);
 }
 
+.green {
+    color: var(--fg);
+}
 
 .lora {
     font-family: "Lora", serif;
     font-optical-sizing: auto;
     font-style: normal;
+}
+
+.ui {
+    font-family: "system-ui", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.ui-bold {
+    font-family: "system-ui", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 700;
 }

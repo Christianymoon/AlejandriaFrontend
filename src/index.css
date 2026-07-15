@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import "tailwindcss";
+
+:root {
+    --bg: #FAF7F2;
+    --fg: #225A31;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg);
+    font-family: "Lora", serif;
+}
+
+#root {
+    background-color: var(--bg);
+}
+
+.color-bg {
+    background-color: var(--bg);
+}
+
+
+.lora {
+    font-family: "Lora", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}

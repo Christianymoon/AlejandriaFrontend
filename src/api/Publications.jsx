@@ -1,3 +1,24 @@
+export async function getPublicationById(token, publicationId) {
+    try {
+        const response = await fetch(`/api/publications/${publicationId}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+
+        if (!response.ok) {
+            const err = await response.json()
+            throw new Error(err.detail)
+        }
+
+        const data = await response.json()
+        return data
+
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
 
 
 export async function getAllPublications(token) {
@@ -10,21 +31,21 @@ export async function getAllPublications(token) {
         })
 
         if (!response.ok) {
-            return { error: response.statusText }
+            const err = await response.json()
+            throw new Error(err.detail)
         }
 
         const data = await response.json()
         return data
 
     } catch (error) {
-        console.error(error)
+        throw new Error(error.message)
     }
 }
 
-export async function setPublication(token, publication) {
 
-    console.log(token)
-    console.log(publication)
+
+export async function setPublication(token, publication) {
     try {
         const response = await fetch("/api/publications/", {
             method: "POST",
@@ -36,13 +57,14 @@ export async function setPublication(token, publication) {
         })
 
         if (!response.ok) {
-            return { error: response.statusText }
+            const err = await response.json()
+            throw new Error(err.detail)
         }
 
         const data = await response.json()
         return data
 
     } catch (error) {
-        console.error(error)
+        throw new Error(error.message)
     }
 }

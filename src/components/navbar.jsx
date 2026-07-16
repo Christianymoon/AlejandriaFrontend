@@ -53,7 +53,7 @@ export default function Navbar() {
 
 
 
-                <div className='routes z-11 flex justify-center flex-col gap-4 text-lg fixed right-0 top-0 h-full w-1/2 bg-[var(--fg)] text-white px-4 py-2 hidden'>
+                <div className='routes z-11 flex justify-center items-center flex-col gap-4 text-lg fixed right-0 top-0 h-full w-1/2 bg-[var(--fg)] text-white px-4 py-2 hidden'>
                     <Link className='cursor-pointer text-[var(--bg)] hover:text-black' to="/">Publicaciones</Link>
                     <Link className='cursor-pointer text-[var(--bg)] hover:text-black' to="/inventory">Inventario</Link>
                     <Link className='cursor-pointer text-[var(--bg)] hover:text-black' to="/users">Usuarios</Link>

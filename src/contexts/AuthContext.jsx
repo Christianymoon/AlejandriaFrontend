@@ -4,6 +4,7 @@ const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
     const [User, setUser] = useState(() => localStorage.getItem("access_token") || null)
+
     const Login = async (username, password) => {
         try {
             let params = new URLSearchParams()
@@ -25,7 +26,7 @@ export function AuthProvider({ children }) {
             return true
 
         } catch (error) {
-            return false
+            throw new Error(error.message)
         }
 
     }
@@ -47,6 +48,6 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-    const context = useContext(AuthContext) 
+    const context = useContext(AuthContext)
     return context
 }

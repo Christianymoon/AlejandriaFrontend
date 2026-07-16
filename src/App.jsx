@@ -6,7 +6,7 @@ import { Publications, AddPublications } from './pages/publications.jsx'
 import Users from './pages/users.jsx'
 import Movements from './pages/movements.jsx'
 import Navbar from './components/navbar.jsx'
-import Login from './pages/login.jsx'
+import LogIn from './pages/login.jsx'
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
     <BrowserRouter>
       {isAuthenticated && <Navbar />}
       <Routes>
-        {!isAuthenticated && <Route path="/login" element={<Login />} />}
+        {!isAuthenticated && <Route path="/login" element={<LogIn />} />}
         <Route element={<ProtectedRoutes IsAllowed={isAuthenticated} />}>
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/users" element={<Users />} />

@@ -21,12 +21,18 @@ export function AuthProvider({ children }) {
             })
 
             const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.detail)
+            }
+
             localStorage.setItem("access_token", data.access_token)
             setUser(data.access_token)
-            return true
+
 
         } catch (error) {
             throw new Error(error.message)
+
         }
 
     }

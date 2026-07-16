@@ -3,7 +3,7 @@ import { useNavigate } from "react-router"
 import { useAuth } from "../contexts/AuthContext.jsx"
 import { Message } from "../components/message.jsx"
 
-export default function Login() {
+export default function LogIn() {
 
     const navigate = useNavigate()
     const { Login, isAuthenticated } = useAuth()
@@ -22,15 +22,11 @@ export default function Login() {
         }
 
         try {
-            const success = await Login(username, password)
-            if (success) {
-                navigate('/')
-            } else {
-                setError("Credenciales incorrectas")
-            }
+            await Login(username, password)
+            navigate('/')
 
         } catch (error) {
-            setError(error)
+            setError(error.message)
         }
 
     }

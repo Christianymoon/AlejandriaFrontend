@@ -1,25 +1,22 @@
-import React from 'react'
-
-// Cards component: recibe una lista de publicaciones vía props.publications
-// Cada publicación tiene la forma:
-// {
-//   id, name, year, month, type, code,
-//   inventory: { total_quantity, available_quantity, updated_at } | null
-// }
+import { useNavigate } from "react-router"
 
 const Card = ({ pub }) => {
   const { name, year, month, type, code, inventory } = pub || {}
-  
+
   const available = inventory?.available_quantity ?? 0;
   const total = inventory?.total_quantity ?? 0;
-  
+
+  const navigate = useNavigate()
+  const handleAddInventory = (e) => {
+    e.stopPropagation()
+    navigate(`/inventory/${pub.id}`)
+  }
+
   return (
-    <div className="ui flex flex-col bg-white border border-[var(--fg)]/10 shadow-sm hover:shadow-md transition-all duration-300 rounded-2xl overflow-hidden mx-2 my-2 group">
-      {/* Header de la Card */}
+    <div onClick={(e) => { handleAddInventory(e) }} className="ui cursor-pointer flex flex-col bg-white border border-[var(--fg)]/10 shadow-sm hover:shadow-md transition-all duration-300 rounded-2xl overflow-hidden mx-2 my-2 group">
       <div className="bg-[var(--fg)] px-5 py-4 flex justify-between items-center relative overflow-hidden">
-        {/* Efecto decorativo */}
         <div className="absolute -right-4 -top-10 opacity-10 transform rotate-12 transition-transform group-hover:rotate-45 duration-700">
-           <svg width="100" height="100" viewBox="0 0 24 24" fill="white"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+          <svg width="100" height="100" viewBox="0 0 24 24" fill="white"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" /></svg>
         </div>
         <h3 className="text-lg lora font-bold text-white uppercase tracking-wider truncate pr-4 z-10" title={name || 'Sin título'}>
           {name || 'Sin título'}
@@ -28,8 +25,7 @@ const Card = ({ pub }) => {
           {code || '-'}
         </span>
       </div>
-      
-      {/* Cuerpo de la Card */}
+
       <div className="p-5 flex flex-col gap-5 flex-grow">
         <div className="grid grid-cols-3 gap-3 bg-[var(--bg)] p-4 rounded-xl border border-[var(--fg)]/10 shadow-inner">
           <div className="flex flex-col items-center justify-center text-center">
@@ -45,8 +41,7 @@ const Card = ({ pub }) => {
             <span className="font-semibold text-gray-800 text-sm">{month || '-'}</span>
           </div>
         </div>
-        
-        {/* Footer / Inventario */}
+
         <div className="mt-auto pt-4 border-t border-[var(--fg)]/10">
           {inventory ? (
             <div className="flex items-center justify-between">
@@ -80,7 +75,7 @@ const Cards = (props) => {
     return (
       <div className="flex justify-center items-center p-12">
         <div className="bg-white px-8 py-6 rounded-2xl border border-[var(--fg)]/20 shadow-sm text-center">
-            <span className="text-[var(--fg)] font-medium lora text-lg">No hay publicaciones disponibles</span>
+          <span className="text-[var(--fg)] font-medium lora text-lg">No hay publicaciones disponibles</span>
         </div>
       </div>
     )

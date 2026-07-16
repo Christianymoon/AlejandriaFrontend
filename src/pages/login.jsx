@@ -34,7 +34,7 @@ export default function Login() {
 
         <form onSubmit={handleLogin}>
 
-            <div className="login flex flex-col items-center justify-center gap-4 p-4">
+            <div className="login h-screen flex flex-col items-center justify-center gap-4 p-4">
                 <h1 className="text-4xl text-black">Alejandria</h1>
 
                 <input

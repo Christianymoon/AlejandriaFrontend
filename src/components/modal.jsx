@@ -21,12 +21,11 @@ export function CentralModal({ isOpen, OnClose, children }) {
     if (!isOpen) return null;
 
     return (
-        <div className="absolute border-1 border-[var(--fg)] rounded-2xl left-[5%] top-[30%] flex-col flex w-[90%] h-[30%] items-center justify-center z-50 bg-[var(--bg)]">
-            <div className="flex w-full h-[20%]">
+        <div id="centralmodal" className="absolute border-1 border-[var(--fg)] rounded-2xl left-[5%] top-[30%] flex-col flex w-[90%] max-h-[80vh] items-center justify-center z-50 bg-[var(--bg)]">
+            <div className="flex-1">
                 <button className="w-full rounded-xl h-full text-[24px] cursor-pointer" onClick={OnClose}>X</button>
             </div>
-            <div className="modal w-full h-[80%]">
-
+            <div className="flex-1 w-full overflow-y-auto">
                 {children}
             </div>
         </div>

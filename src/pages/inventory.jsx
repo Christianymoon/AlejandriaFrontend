@@ -7,7 +7,6 @@ import { useAuth } from "../contexts/AuthContext.jsx"
 import { addInventory } from "../api/Inventories.jsx"
 import { getPublicationById, getAllPublications, deletePublication, getPublicationHistory } from "../api/Publications.jsx"
 import { Message } from "../components/message.jsx"
-import { ModalBody } from "@heroui/react"
 
 export function Inventory() {
   const [publications, setPublications] = useState([])
@@ -78,15 +77,15 @@ export function Inventory() {
                 <tbody>
                   {history.map((item) => (
                     <tr key={item.id}>
-                      <td className="text-sm text-center border-[var(--fg)]">
+                      <td className="text-sm py-4 text-center border-[var(--fg)]">
                         {item.total_quantity}
                       </td>
 
-                      <td className="text-sm text-center border-[var(--fg)]">
+                      <td className="text-sm py-4 text-center border-[var(--fg)]">
                         {item.available_quantity}
                       </td>
 
-                      <td className="text-sm text-center pr-2 border-[var(--fg)]">
+                      <td className="text-sm py-4 text-center pr-2 border-[var(--fg)]">
                         {new Date(item.updated_at).toLocaleString("es-MX")}
                       </td>
                     </tr>

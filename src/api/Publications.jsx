@@ -1,6 +1,8 @@
+const BASE_URL = import.meta.env.VITE_API_URL
+
 export async function getPublicationById(token, publicationId) {
     try {
-        const response = await fetch(`/api/publications/${publicationId}`, {
+        const response = await fetch(BASE_URL + `/publications/${publicationId}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -23,7 +25,7 @@ export async function getPublicationById(token, publicationId) {
 
 export async function getAllPublications(token) {
     try {
-        const response = await fetch("/api/publications/", {
+        const response = await fetch(BASE_URL + "/publications/", {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -45,7 +47,7 @@ export async function getAllPublications(token) {
 
 export async function deletePublication(token, publicationId) {
     try {
-        const response = await fetch(`/api/publications/${publicationId}`, {
+        const response = await fetch(BASE_URL + `/publications/${publicationId}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -65,7 +67,7 @@ export async function deletePublication(token, publicationId) {
 
 export async function getPublicationHistory(token, publicationId) {
     try {
-        const response = await fetch(`/api/publications/${publicationId}/history`, {
+        const response = await fetch(BASE_URL + `/publications/${publicationId}/history`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -84,7 +86,7 @@ export async function getPublicationHistory(token, publicationId) {
 
 export async function setPublication(token, publication) {
     try {
-        const response = await fetch("/api/publications/", {
+        const response = await fetch(BASE_URL + "/publications/", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,

@@ -1,3 +1,5 @@
+const BASE_URL = import.meta.env.VITE_API_URL
+
 export async function addInventory(token, publication, inventory) {
     const req = {
         publication_id: parseInt(publication.id),
@@ -5,7 +7,7 @@ export async function addInventory(token, publication, inventory) {
         available_quantity: parseInt(inventory.available_quantity),
     }
 
-    const res = await fetch("/api/inventory/", {
+    const res = await fetch(BASE_URL + "/inventory/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -32,7 +34,7 @@ export async function addInventory(token, publication, inventory) {
 
 export async function getInventories(token) {
     try {
-        const response = await fetch("/api/inventory/", {
+        const response = await fetch(BASE_URL + "/inventory/", {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -59,7 +61,7 @@ export async function updateInventory(token, publication, newInventory) {
         available_quantity: parseInt(newInventory.available_quantity),
     }
 
-    const res = await fetch("/api/inventory/" + publication.inventory.id, {
+    const res = await fetch(BASE_URL + "/inventory/" + publication.inventory.id, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

@@ -1,5 +1,7 @@
 import { createContext, useState, useContext } from "react"
 
+const BASE_URL = import.meta.env.VITE_API_URL
+
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
@@ -12,7 +14,7 @@ export function AuthProvider({ children }) {
             params.append("password", password)
 
 
-            const response = await fetch("api/token", {
+            const response = await fetch(BASE_URL + "/token", {
                 method: "POST",
                 body: params,
                 headers: {

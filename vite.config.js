@@ -13,14 +13,6 @@ export default defineConfig({
     hmr: {
       overlay: true,
     },
-    proxy: {
-      '/api': {
-        target: 'https://alejandria-c52y.onrender.com',
-        changeOrigin: true,
-        // Esto quita el "/api" antes de enviarlo a tu backend
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
   },
   plugins: [
     react(),

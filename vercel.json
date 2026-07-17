@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/:path*",
+            "destination": "https://alejandria-c52y.onrender.com/:path*"
+        }
+    ]
+}

@@ -43,7 +43,44 @@ export async function getAllPublications(token) {
     }
 }
 
+export async function deletePublication(token, publicationId) {
+    try {
+        const response = await fetch(`/api/publications/${publicationId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        })
 
+        if (!response.ok) {
+            const err = await response.json()
+            throw new Error(err.detail)
+        }
+
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+
+export async function getPublicationHistory(token, publicationId) {
+    try {
+        const response = await fetch(`/api/publications/${publicationId}/history`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+        if (!response.ok) {
+            const err = await response.json()
+            throw new Error(err.detail)
+        }
+        const data = await response.json()
+        return data
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
 
 export async function setPublication(token, publication) {
     try {

@@ -1,6 +1,6 @@
-export async function addInventory(token, publicationId, inventory) {
+export async function addInventory(token, publication, inventory) {
     const req = {
-        publication_id: parseInt(publicationId),
+        publication_id: parseInt(publication.id),
         total_quantity: parseInt(inventory.total_quantity),
         available_quantity: parseInt(inventory.available_quantity),
     }
@@ -14,12 +14,20 @@ export async function addInventory(token, publicationId, inventory) {
         body: JSON.stringify(req)
     })
 
-    if (!res.ok) {
-        const err = await res.json()
-        throw new Error(err.detail)
+    const dat = await res.json()
+
+    if (res.status == 400) {
+        await updateInventory(token, publication, inventory)
+        return
     }
 
-    return res.json()
+    if (!res.ok) {
+        throw new Error(dat.detail)
+    }
+
+
+
+    return dat
 }
 
 export async function getInventories(token) {
@@ -45,13 +53,13 @@ export async function getInventories(token) {
 }
 
 
-export async function updateInventory(token, inventory) {
+export async function updateInventory(token, publication, newInventory) {
     const req = {
-        total_quantity: parseInt(inventory.total_quantity),
-        available_quantity: parseInt(inventory.available_quantity),
+        total_quantity: parseInt(newInventory.total_quantity),
+        available_quantity: parseInt(newInventory.available_quantity),
     }
 
-    const res = await fetch("/api/inventory/" + inventory.id, {
+    const res = await fetch("/api/inventory/" + publication.inventory.id, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -60,12 +68,13 @@ export async function updateInventory(token, inventory) {
         body: JSON.stringify(req)
     })
 
+    const dat = await res.json()
+
     if (!res.ok) {
-        const err = await res.json()
-        throw new Error(err.detail)
+        throw new Error(dat.detail)
     }
 
-    return res.json()
+    return dat
 }
 
 

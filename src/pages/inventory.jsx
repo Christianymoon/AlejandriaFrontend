@@ -1,18 +1,20 @@
 import { Title } from "../components/header.jsx"
-import { AddButton } from "../components/buttons.jsx"
-import { Modal } from "../components/modal.jsx"
+import { NormalButton } from "../components/buttons.jsx"
+import { Modal, CentralModal } from "../components/modal.jsx"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { useAuth } from "../contexts/AuthContext.jsx"
 import { addInventory } from "../api/Inventories.jsx"
-import { getPublicationById, getAllPublications } from "../api/Publications.jsx"
+import { getPublicationById, getAllPublications, deletePublication, getPublicationHistory } from "../api/Publications.jsx"
 import { Message } from "../components/message.jsx"
+import { ModalBody } from "@heroui/react"
 
 export function Inventory() {
   const [publications, setPublications] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [searchQuery, setSearchQuery] = useState("")
+  const [showModal, setShowModal] = useState(false)
   const { User } = useAuth()
   const navigate = useNavigate()
 
@@ -40,9 +42,65 @@ export function Inventory() {
     navigate(`/inventory/${pubId}`)
   }
 
+  const [history, setHistory] = useState([])
+  const handleModal = async (pubId) => {
+    if (showModal) {
+      setShowModal(false);
+      setHistory([]);
+      return;
+    }
+
+    const data = await getPublicationHistory(User, pubId);
+
+    setHistory(data ?? []);
+    setShowModal(true);
+  };
+
   return (
     <Title Name="Inventario">
       <div className="w-full px-6 py-4 flex flex-col gap-6">
+        <CentralModal
+          isOpen={showModal}
+          OnClose={handleModal}
+        >
+          <div id="modalBody" className="w-full h-full overflow-x-hidden overflow-y-auto">
+            {history.length > 0 ? (
+              <table className="w-full w-full h-full table-fixed border-[var(--fg)] border-collapse">
+                <caption className="text-sm text-bold p-2 bg-[var(--fg)] text-white ">Historial de publicacion</caption>
+                <thead>
+                  <tr>
+                    <th className="text-sm bg-[var(--fg)] text-white">Cantidad</th>
+                    <th className="text-sm bg-[var(--fg)] text-white">Disponible</th>
+                    <th className="text-sm bg-[var(--fg)] text-white">Actualizado</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {history.map((item) => (
+                    <tr key={item.id}>
+                      <td className="text-sm text-center border-[var(--fg)]">
+                        {item.total_quantity}
+                      </td>
+
+                      <td className="text-sm text-center border-[var(--fg)]">
+                        {item.available_quantity}
+                      </td>
+
+                      <td className="text-sm text-center pr-2 border-[var(--fg)]">
+                        {new Date(item.updated_at).toLocaleString("es-MX")}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+
+              </table>
+            ) : (
+              <div className="text-center p-4">
+                <h1>No hay historial disponible.</h1>
+              </div>
+            )}
+          </div>
+        </CentralModal>
 
         {/* Barra de búsqueda */}
         <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-white p-4 rounded-2xl border border-[var(--fg)]/10 shadow-sm">
@@ -85,6 +143,7 @@ export function Inventory() {
                   <th className="px-6 py-4 text-center">Total</th>
                   <th className="px-6 py-4">Estado</th>
                   <th className="px-6 py-4">Última Actualización</th>
+                  <th className="px-6 py-4">Historial</th>
                   <th className="px-6 py-4 text-right rounded-tr-2xl">Acciones</th>
                 </tr>
               </thead>
@@ -127,6 +186,11 @@ export function Inventory() {
                             ? new Date(pub.inventory.updated_at).toLocaleDateString()
                             : "-"}
                         </td>
+                        <td className="px-6 py-4">
+                          <button onClick={async () => { handleModal(pub.id) }} className="bg-[var(--fg)] text-[var(--bg)] hover:bg-black hover:text-white transition-colors duration-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 ml-auto cursor-pointer">
+                            Ver Historial
+                          </button>
+                        </td>
                         <td className="px-6 py-4 text-right">
                           <button
                             onClick={() => handleEdit(pub.id)}
@@ -151,7 +215,7 @@ export function Inventory() {
           </div>
         )}
       </div>
-    </Title>
+    </Title >
   )
 }
 
@@ -190,8 +254,18 @@ export function AddInventory() {
     }
 
     try {
-      await addInventory(User, publicationId, inventory)
+      await addInventory(User, publication, inventory)
       setMessage("Inventario agregado correctamente")
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    try {
+      await deletePublication(User, publicationId)
+      setMessage("Publicación eliminada correctamente")
     } catch (error) {
       setError(error.message)
     }
@@ -229,14 +303,13 @@ export function AddInventory() {
               className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <button
-            type="submit"
-            className="bg-[var(--fg)] text-[var(--bg)] hover:text-black px-4 py-2 rounded-lg cursor-pointer"
-          >
-            Aceptar
-          </button>
+          <NormalButton text="Aceptar" onClick={handleSubmit} />
         </form>
+        <div className="danger-zone">
+          <NormalButton className="bg-red-500 text-[var(--bg)] hover:text-white my-6 px-3 py-2 rounded-lg cursor-pointer" text="Eliminar Publicación" onClick={handleDelete} />
+        </div>
       </Modal>
+
     </div>
   )
 }

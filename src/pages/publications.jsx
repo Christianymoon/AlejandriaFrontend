@@ -6,6 +6,7 @@ import { Modal } from "../components/modal.jsx"
 import { useNavigate } from "react-router"
 import { Title } from "../components/header.jsx"
 import Cards from "../components/cards.jsx"
+import { Message } from "../components/message.jsx"
 
 
 export function Publications() {
@@ -37,13 +38,11 @@ export function Publications() {
             <div className="MiniPanel w-full px-4 py-2">
                 <AddButton onClick={navigateToAddPublication} />
             </div>
-            {error && <div>{error}</div>}
+            <Message error={error} />
             <Cards publications={publications} />
         </Title >
     )
 }
-
-
 
 export function AddPublications() {
 
@@ -150,7 +149,7 @@ export function AddPublications() {
                     </div>
                     <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-[var(--fg)] cursor-pointer hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
                         Agregar
                     </button>

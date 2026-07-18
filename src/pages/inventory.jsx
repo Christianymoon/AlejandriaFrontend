@@ -64,13 +64,13 @@ export function Inventory() {
         >
           <div id="modalBody" className="w-full h-full overflow-x-hidden overflow-y-auto">
             {history.length > 0 ? (
-              <table className="w-full w-full h-full table-fixed border-[var(--fg)] border-collapse">
-                <caption className="text-sm text-bold p-2 bg-[var(--fg)] text-white ">Historial de publicacion</caption>
+              <table className="w-full w-full bg-[var(--surface)] text-[var(--text)] h-full table-fixed border-[var(--fg)] border-collapse">
+                <caption className="text-sm font-bold p-2 bg-[var(--fg)] text-[var(--text)]">Historial de publicación</caption>
                 <thead>
                   <tr>
-                    <th className="text-sm bg-[var(--fg)] text-white">Cantidad</th>
-                    <th className="text-sm bg-[var(--fg)] text-white">Disponible</th>
-                    <th className="text-sm bg-[var(--fg)] text-white">Actualizado</th>
+                    <th className="text-sm bg-[var(--fg)] text-[var(--text)]">Cantidad</th>
+                    <th className="text-sm bg-[var(--fg)] text-[var(--text)]">Disponible</th>
+                    <th className="text-sm bg-[var(--fg)] text-[var(--text)]">Actualizado</th>
                   </tr>
                 </thead>
 
@@ -94,7 +94,7 @@ export function Inventory() {
 
               </table>
             ) : (
-              <div className="text-center p-4">
+              <div className="text-center text-[var(--text)] p-4">
                 <h1>No hay historial disponible.</h1>
               </div>
             )}
@@ -102,9 +102,9 @@ export function Inventory() {
         </CentralModal>
 
         {/* Barra de búsqueda */}
-        <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-white p-4 rounded-2xl border border-[var(--fg)]/10 shadow-sm">
+        <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-[var(--surface)] p-4 rounded-2xl border border-[var(--fg)]/10 shadow-sm">
           <div className="relative flex-grow max-w-md">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-[var(--text)] opacity-60">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -114,27 +114,27 @@ export function Inventory() {
               placeholder="Buscar por título, código o tipo..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[var(--fg)] focus:ring-1 focus:ring-[var(--fg)] bg-[var(--bg)]/30"
+              className="w-full pl-10 pr-4 py-2 border border-[var(--fg)]/20 rounded-xl text-sm focus:outline-none focus:border-[var(--fg)] focus:ring-1 focus:ring-[var(--fg)] bg-[var(--bg)]/30 text-[var(--text)]"
             />
           </div>
-          <div className="text-right text-xs text-gray-500 font-semibold tracking-wider uppercase">
+          <div className="text-right text-xs text-[var(--text)] opacity-70 font-semibold tracking-wider uppercase">
             Total publicaciones: <span className="text-[var(--fg)] text-sm font-black">{filteredPublications.length}</span>
           </div>
         </div>
 
         {error && (
-          <div className="p-4 bg-red-50 text-red-700 rounded-2xl border border-red-200">
+          <div className="p-4 bg-[var(--danger-bg)] text-[var(--danger)] rounded-2xl border border-[var(--danger-border)]">
             {error}
           </div>
         )}
 
         {loading ? (
-          <div className="text-center py-12 text-gray-500 font-semibold">Cargando inventarios...</div>
+          <div className="text-center py-12 text-[var(--text)] opacity-70 font-semibold">Cargando inventarios...</div>
         ) : (
-          <div className="overflow-x-auto bg-white rounded-2xl border border-[var(--fg)]/10 shadow-sm">
+          <div className="overflow-x-auto bg-[var(--surface)] rounded-2xl border border-[var(--fg)]/10 shadow-sm">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-[var(--fg)] text-white text-[0.75rem] font-bold uppercase tracking-wider">
+                <tr className="bg-[var(--fg)] text-[var(--text)] text-[0.75rem] font-bold uppercase tracking-wider">
                   <th className="px-6 py-4 rounded-tl-2xl">Título</th>
                   <th className="px-6 py-4">Código</th>
                   <th className="px-6 py-4">Tipo</th>
@@ -146,10 +146,10 @@ export function Inventory() {
                   <th className="px-6 py-4 text-right rounded-tr-2xl">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 text-sm">
+              <tbody className="divide-y divide-[var(--fg)]/20 text-sm">
                 {filteredPublications.length === 0 ? (
                   <tr>
-                    <td colSpan="8" className="px-6 py-10 text-center text-gray-500 italic">
+                    <td colSpan="8" className="px-6 py-10 text-center text-[var(--text)] opacity-70 italic">
                       No se encontraron inventarios
                     </td>
                   </tr>
@@ -161,39 +161,39 @@ export function Inventory() {
 
                     let statusBadge = null
                     if (!hasInventory) {
-                      statusBadge = <span className="bg-gray-100 text-gray-500 text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap">Sin Inventario</span>
+                      statusBadge = <span className="bg-[var(--surface-muted)] text-[var(--text)] opacity-70 text-xs font-semibold px-2.5 py-1 rounded-full border border-[var(--fg)]/10 whitespace-nowrap">Sin Inventario</span>
                     } else if (available === 0) {
-                      statusBadge = <span className="bg-red-50 text-red-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-red-100 whitespace-nowrap">Agotado</span>
+                      statusBadge = <span className="bg-[var(--danger-bg)] text-[var(--danger)] text-xs font-semibold px-2.5 py-1 rounded-full border border-[var(--danger-border)] whitespace-nowrap">Agotado</span>
                     } else if (available <= 5) {
-                      statusBadge = <span className="bg-amber-50 text-amber-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-amber-100 whitespace-nowrap">Bajo Stock</span>
+                      statusBadge = <span className="bg-[var(--warning-bg)] text-[var(--warning)] text-xs font-semibold px-2.5 py-1 rounded-full border border-[var(--warning-border)] whitespace-nowrap">Bajo Stock</span>
                     } else {
-                      statusBadge = <span className="bg-emerald-50 text-[var(--fg)] text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-100 whitespace-nowrap">Disponible</span>
+                      statusBadge = <span className="bg-[var(--success-bg)] text-[var(--fg)] text-xs font-semibold px-2.5 py-1 rounded-full border border-[var(--success-border)] whitespace-nowrap">Disponible</span>
                     }
 
                     return (
                       <tr key={pub.id} className="hover:bg-[var(--bg)]/10 transition-colors">
-                        <td className="px-6 py-4 font-semibold text-gray-800 lora max-w-xs truncate" title={pub.name}>
+                        <td className="px-6 py-4 font-semibold text-[var(--text)] lora max-w-xs truncate" title={pub.name}>
                           {pub.name}
                         </td>
-                        <td className="px-6 py-4 font-bold text-gray-500">{pub.code || "-"}</td>
-                        <td className="px-6 py-4 text-gray-600">{pub.type || "-"}</td>
-                        <td className="px-6 py-4 text-center font-bold text-gray-800">{hasInventory ? available : "-"}</td>
-                        <td className="px-6 py-4 text-center text-gray-500">{hasInventory ? total : "-"}</td>
+                        <td className="px-6 py-4 font-bold text-[var(--text)] opacity-70">{pub.code || "-"}</td>
+                        <td className="px-6 py-4 text-[var(--text)] opacity-80">{pub.type || "-"}</td>
+                        <td className="px-6 py-4 text-center font-bold text-[var(--text)]">{hasInventory ? available : "-"}</td>
+                        <td className="px-6 py-4 text-center text-[var(--text)] opacity-70">{hasInventory ? total : "-"}</td>
                         <td className="px-6 py-4">{statusBadge}</td>
-                        <td className="px-6 py-4 text-xs text-gray-400 font-medium">
+                        <td className="px-6 py-4 text-xs text-[var(--text)] opacity-60 font-medium">
                           {pub.inventory?.updated_at
                             ? new Date(pub.inventory.updated_at).toLocaleDateString()
                             : "-"}
                         </td>
                         <td className="px-6 py-4">
-                          <button onClick={async () => { handleModal(pub.id) }} className="bg-[var(--fg)] text-[var(--bg)] hover:bg-black hover:text-white transition-colors duration-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 ml-auto cursor-pointer">
+                          <button onClick={async () => { handleModal(pub.id) }} className="bg-[var(--fg)] text-[var(--bg)] hover:bg-[var(--fg)]/90 hover:text-[var(--text)] transition-colors duration-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 ml-auto cursor-pointer">
                             Ver Historial
                           </button>
                         </td>
                         <td className="px-6 py-4 text-right">
                           <button
                             onClick={() => handleEdit(pub.id)}
-                            className="bg-[var(--fg)] text-[var(--bg)] hover:bg-black hover:text-white transition-colors duration-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 ml-auto cursor-pointer"
+                            className="bg-[var(--fg)] text-[var(--bg)] hover:bg-[var(--fg)]/90 hover:text-[var(--text)] transition-colors duration-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 ml-auto cursor-pointer"
                           >
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                               {hasInventory ? (
@@ -273,11 +273,11 @@ export function AddInventory() {
   return (
     <div>
       <Modal isOpen={true} onClose={() => { navigate("/") }}>
-        <h2 className="text-xl font-bold mb-4">Agregar Inventario a la Publicación: {publicationId}</h2>
+        <h2 className="text-xl text-[var(--text)] ui font-bold mb-4">Agregar Inventario</h2>
         <Message error={error} message={message} />
         <form className="w-full max-w-sm" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="total_quantity">
+            <label className="block text-[var(--text)] text-sm font-bold mb-2" htmlFor="total_quantity">
               Cantidad Total
             </label>
             <input
@@ -286,11 +286,11 @@ export function AddInventory() {
               autoComplete="on"
               value={total_quantity}
               onChange={e => setTotalQuantity(e.target.value)}
-              className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow ui appearance-none rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline bg-[var(--surface)]/80"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="available_quantity">
+            <label className="block lora text-[var(--text)] text-sm font-bold mb-2" htmlFor="available_quantity">
               Cantidad Disponible
             </label>
             <input
@@ -299,13 +299,13 @@ export function AddInventory() {
               autoComplete="on"
               value={available_quantity}
               onChange={e => setAvailableQuantity(e.target.value)}
-              className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow ui appearance-none rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline bg-[var(--surface)]/80"
             />
           </div>
           <NormalButton text="Aceptar" onClick={handleSubmit} />
         </form>
         <div className="danger-zone">
-          <NormalButton className="bg-red-500 text-[var(--bg)] hover:text-white my-6 px-3 py-2 rounded-lg cursor-pointer" text="Eliminar Publicación" onClick={handleDelete} />
+          <NormalButton className="ui bg-[var(--danger)] text-[var(--text)] hover:text-[var(--bg)] my-6 px-3 py-2 rounded-lg cursor-pointer" text="Eliminar" onClick={handleDelete} />
         </div>
       </Modal>
 

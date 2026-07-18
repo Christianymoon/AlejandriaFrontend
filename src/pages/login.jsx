@@ -35,22 +35,22 @@ export default function LogIn() {
 
         <form onSubmit={handleLogin}>
             <Message error={error} message={message} />
-            <div className="login h-screen flex flex-col items-center justify-center gap-4 p-4">
-                <h1 className="text-4xl text-black">Alejandria</h1>
+            <div className="login ui h-screen border-1 border-[var(--fg)] flex flex-col items-center justify-center gap-4 p-4 bg-[var(--bg)]">
+                <h1 className="text-4xl lora text-[var(--text)]">Alejandria</h1>
                 <input
-                    className="border-2 rounded-2xl border-black p-4 w-96 rounded"
+                    className="border-2 rounded-2xl w-full border-[var(--fg)] p-4  rounded bg-[var(--bg)] text-[var(--text)] placeholder:text-[var(--text)]/70"
                     type="text"
                     placeholder="Usuario"
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 <input
-                    className="border-2 rounded-2xl border-black p-4 w-96 rounded"
+                    className="border-2 rounded-2xl w-full border-[var(--fg)] p-4  rounded bg-[var(--bg)] text-[var(--text)] placeholder:text-[var(--text)]/70"
                     type="password"
                     placeholder="Contraseña"
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
-                    className="bg-[var(--fg)] rounded-2xl text-white p-4 w-96 rounded cursor-pointer transition-all ease-in-out">
+                    className="bg-[var(--fg)] rounded-2xl w-full text-[var(--text)] p-4  rounded cursor-pointer transition-all ease-in-out hover:bg-[var(--fg)]/90">
                     Iniciar Sesión
                 </button>
             </div>

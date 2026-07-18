@@ -16,7 +16,7 @@ export function NormalButton({
     onClick,
 }) {
     return (
-        <button className={className || `bg-[var(--fg)] text-[var(--bg)] hover:text-black px-4 py-2 rounded-lg cursor-pointer`} onClick={onClick}>
+        <button className={className || `bg-[var(--fg)] ui text-[var(--text)] hover:text-black px-4 py-2 rounded-lg cursor-pointer`} onClick={onClick}>
             {text}
         </button>
     )

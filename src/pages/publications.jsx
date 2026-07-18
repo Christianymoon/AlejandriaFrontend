@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { getAllPublications, setPublication } from "../api/Publications.jsx"
 import { useAuth } from "../contexts/AuthContext.jsx"
-import { AddButton } from "../components/buttons.jsx"
+import { AddButton, NormalButton } from "../components/buttons.jsx"
 import { Modal } from "../components/modal.jsx"
 import { useNavigate } from "react-router"
 import { Title } from "../components/header.jsx"
@@ -80,7 +80,7 @@ export function AddPublications() {
     return (
         <>
             <Modal isOpen={true} onClose={returnToPublications}>
-                <h2 className="text-xl font-bold mb-4">Agregar Publicación</h2>
+                <h2 className="text-xl ui text-[var(--text)] font-bold mb-4">Agregar Publicación</h2>
                 <form className="w-full max-w-sm" onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-[var(--text)] text-sm font-bold mb-2" htmlFor="name">
@@ -92,7 +92,7 @@ export function AddPublications() {
                             value={name}
                             autoComplete="on"
                             onChange={(e) => setName(e.target.value)}
-                            className="shadow appearance-none border border-[var(--fg)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none bg-[var(--surface)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
                     <div className="mb-4">
@@ -105,7 +105,7 @@ export function AddPublications() {
                             value={year}
                             autoComplete="on"
                             onChange={(e) => setYear(e.target.value)}
-                            className="shadow appearance-none border border-[var(--fg)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none bg-[var(--surface)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
                     <div className="mb-4">
@@ -118,7 +118,7 @@ export function AddPublications() {
                             value={month}
                             autoComplete="on"
                             onChange={(e) => setMonth(e.target.value)}
-                            className="shadow appearance-none border border-[var(--fg)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none bg-[var(--surface)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
                     <div className="mb-4">
@@ -131,7 +131,7 @@ export function AddPublications() {
                             autoComplete="on"
                             value={type}
                             onChange={(e) => setType(e.target.value)}
-                            className="shadow appearance-none border border-[var(--fg)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none bg-[var(--surface)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
                     <div className="mb-4">
@@ -144,15 +144,10 @@ export function AddPublications() {
                             value={code}
                             autoComplete="on"
                             onChange={(e) => setCode(e.target.value)}
-                            className="shadow appearance-none border border-[var(--fg)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none bg-[var(--surface)] rounded-xl w-full py-2 px-3 text-[var(--text)] leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
-                    <button
-                        type="submit"
-                        className="bg-[var(--fg)] cursor-pointer hover:bg-emerald-700 text-[var(--text)] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    >
-                        Agregar
-                    </button>
+                    <NormalButton text="Agregar" onClick={handleSubmit} />
                 </form>
             </Modal>
         </>

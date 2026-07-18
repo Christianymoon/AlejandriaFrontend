@@ -35,7 +35,8 @@ export default function LogIn() {
 
         <form onSubmit={handleLogin}>
             <Message error={error} message={message} />
-            <div className="login ui h-screen border-1 border-[var(--fg)] flex flex-col items-center justify-center gap-4 p-4 bg-[var(--bg)]">
+            <div className="login ui h-screen border-1 border-[var(--fg)] flex flex-col items-center justify-center gap-4 p-4 bg-[var(--bg)]
+            md:w-1/2 md:mx-auto md:border-0 lg:w-1/4 lg:mx-auto lg:border-0">
                 <h1 className="text-4xl lora text-[var(--text)]">Alejandria</h1>
                 <input
                     className="border-2 rounded-2xl w-full border-[var(--fg)] p-4  rounded bg-[var(--bg)] text-[var(--text)] placeholder:text-[var(--text)]/70"

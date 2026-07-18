@@ -20,7 +20,6 @@ function App() {
         <Route element={<ProtectedRoutes IsAllowed={isAuthenticated} />}>
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/users" element={<Users />} />
-          <Route path="/movements" element={<Movements />} />
           <Route path='/' element={<Publications />}></Route>
           <Route path='/publications/add' element={<AddPublications />}></Route>
           <Route path='/inventory/:id' element={<AddInventory />}></Route>

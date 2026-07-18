@@ -73,12 +73,14 @@ export async function getPublicationHistory(token, publicationId) {
                 "Authorization": `Bearer ${token}`,
             }
         })
+
         if (!response.ok) {
             const err = await response.json()
             throw new Error(err.detail)
         }
-        const data = await response.json()
-        return data
+
+        return await response.json()
+
     } catch (error) {
         throw new Error(error.message)
     }

@@ -49,9 +49,13 @@ export function Inventory() {
       return;
     }
 
-    const data = await getPublicationHistory(User, pubId);
+    try {
+      const data = await getPublicationHistory(User, pubId);
+      setHistory(data ?? []);
+    } catch (error) {
+      setHistory([]);
+    }
 
-    setHistory(data ?? []);
     setShowModal(true);
   };
 

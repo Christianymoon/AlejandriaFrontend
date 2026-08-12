@@ -61,7 +61,7 @@ export async function updateInventory(token, publication, newInventory) {
         available_quantity: parseInt(newInventory.available_quantity),
     }
 
-    const res = await fetch(BASE_URL + "/inventory" + publication.inventory.id, {
+    const res = await fetch(BASE_URL + "/inventory/" + publication.inventory.id, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

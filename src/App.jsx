@@ -15,7 +15,8 @@ function App() {
   return (
     <BrowserRouter>
       {isAuthenticated && <Navbar />}
-      <Routes>
+      <main className="pb-20 md:pb-0">
+        <Routes>
         {!isAuthenticated && <Route path="/login" element={<LogIn />} />}
         <Route element={<ProtectedRoutes IsAllowed={isAuthenticated} />}>
           <Route path="/inventory" element={<Inventory />} />
@@ -25,7 +26,8 @@ function App() {
           <Route path='/publications/add' element={<AddPublications />}></Route>
           <Route path='/inventory/:id' element={<AddInventory />}></Route>
         </Route>
-      </Routes>
+        </Routes>
+      </main>
     </BrowserRouter>
   )
 }
